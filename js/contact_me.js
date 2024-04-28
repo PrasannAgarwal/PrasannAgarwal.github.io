@@ -20,7 +20,7 @@ $(function() {
                 firstName = name.split(' ').slice(0, -1).join(' ');
             }
             $.ajax({
-                url: "https://script.google.com/macros/s/AKfycbx6L8PtZ9_NNR_k7ozifI-DCMQ79zfOsIEca2ZNvi2jmPo4TnS4KSh0O8SfOVPIrrDicw/exec",
+                url: "https://script.google.com/macros/s/AKfycbx95I-lv6fkTdlc_OnSYt0fQupN5GSToLB_HE35pYKya0EsVlrZSU_DfL_5HYjsBWudnw/exec",
                 type: "POST",
                 data: {
                     name: name,
