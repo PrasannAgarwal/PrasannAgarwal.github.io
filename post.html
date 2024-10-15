@@ -88,40 +88,68 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <p>Never in all their history have men been able truly to conceive of the world as one: a single sphere, a globe, having the qualities of a globe, a round earth in which all the directions eventually meet, in which there is no center because every point, or none, is center — an equal earth which all men occupy as equals. The airman's earth, if free men make it, will be truly round: a globe in practice, not in theory.</p>
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <h2 class="section-heading">The Difference Between int and INTEGER in Java</h2>
+                        <a href="#">
+                            <img class="img-responsive" src="img/post-sample-image.jpg" alt="">
+                        </a>
 
-                    <p>Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science. The early warnings about technological dangers also come from science.</p>
+                        <p>In Java, both `int` and `INTEGER` are used to represent integer values, but they have some key differences that are important to understand for effective programming.</p>
 
-                    <p>What was most significant about the lunar voyage was not that man set foot on the Moon but that they set eye on the earth.</p>
+                        <h3>Primitive vs. Object</h3>
 
-                    <p>A Chinese tale tells of some men sent to harm a young girl who, upon seeing her beauty, become her protectors rather than her violators. That's how I felt seeing the Earth for the first time. I could not help but love and cherish her.</p>
+                        <p>`int` is a primitive data type in Java, while `INTEGER` (more accurately written as `Integer`) is a wrapper class that encapsulates an `int` value as an object.</p>
 
-                    <p>For those who have seen the Earth from space, and for the hundreds and perhaps thousands more who will, the experience most certainly changes your perspective. The things that we share in our world are far more valuable than those which divide us.</p>
+                        <h3>Memory Usage</h3>
 
-                    <h2 class="section-heading">The Final Frontier</h2>
+                        <p>`int` typically uses 32 bits (4 bytes) of memory. `Integer`, being an object, requires additional memory overhead for the object structure, usually around 16 bytes on a 32-bit JVM or 24 bytes on a 64-bit JVM, plus the 4 bytes for the actual int value.</p>
 
-                    <p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
+                        <h3>Nullability</h3>
 
-                    <p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
+                        <p>`int` cannot be null; it always has a value (default is 0). `Integer`, as an object, can be null, which can be useful in certain scenarios like representing the absence of a value.</p>
 
-                    <blockquote>The dreams of yesterday are the hopes of today and the reality of tomorrow. Science has not yet mastered prophecy. We predict too much for the next year and yet far too little for the next ten.</blockquote>
+                        <h3>Usage in Collections</h3>
 
-                    <p>Spaceflights cannot be stopped. This is not the work of any one man or even a group of men. It is a historical process which mankind is carrying out in accordance with the natural laws of human development.</p>
+                        <p>Collections in Java (like ArrayList, HashMap) can only store objects, not primitives. Therefore, `Integer` is used in these cases, not `int`.</p>
 
-                    <h2 class="section-heading">Reaching for the Stars</h2>
+                        <h3>Performance</h3>
 
-                    <p>As we got further and further away, it [the Earth] diminished in size. Finally it shrank to the size of a marble, the most beautiful you can imagine. That beautiful, warm, living object looked so fragile, so delicate, that if you touched it with a finger it would crumble and fall apart. Seeing this has to change a man.</p>
+                        <p>Operations with `int` are generally faster than with `Integer`, as there's no need for boxing and unboxing (converting between primitive and object types).</p>
 
-                    <a href="#">
-                        <img class="img-responsive" src="img/post-sample-image.jpg" alt="">
-                    </a>
-                    <span class="caption text-muted">To go places and do things that have never been done before – that’s what living is all about.</span>
+                        <h2 class="section-heading">Integer Caching in Java</h2>
 
-                    <p>Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds, to seek out new life and new civilizations, to boldly go where no man has gone before.</p>
+                        <p>An interesting aspect of the `Integer` class in Java is its caching mechanism for small integer values. This feature, known as integer caching, can have implications for performance and behavior in certain situations.</p>
 
-                    <p>As I stand out here in the wonders of the unknown at Hadley, I sort of realize there’s a fundamental truth to our nature, Man must explore, and this is exploration at its greatest.</p>
+                        <h3>How Integer Caching Works</h3>
 
-                    <p>Placeholder text by <a href="http://spaceipsum.com/">Space Ipsum</a>. Photographs by <a href="https://www.flickr.com/photos/nasacommons/">NASA on The Commons</a>.</p>
+                        <p>When you create an `Integer` object using autoboxing or the `valueOf()` method, Java checks if the value is between -128 and 127 (inclusive). If it is, instead of creating a new object, Java returns a reference to a pre-existing, cached `Integer` object.</p>
+
+                        <pre><code class="java">
+Integer a = 100;  // Uses cached value
+Integer b = 100;  // Uses the same cached value
+System.out.println(a == b);  // Prints true
+
+Integer c = 1000;  // Outside cache range, new object created
+Integer d = 1000;  // Another new object created
+System.out.println(c == d);  // Prints false
+    </code></pre>
+
+                        <p>In the example above, `a` and `b` refer to the same cached `Integer` object, while `c` and `d` are distinct objects.</p>
+
+                        <h3>Benefits and Considerations</h3>
+
+                        <p>Integer caching can improve performance and reduce memory usage for applications that frequently use small integer values. However, it's important to remember that this behavior only applies to a limited range of values and that using `==` to compare `Integer` objects can lead to unexpected results.</p>
+
+                        <p>Always use the `equals()` method to compare `Integer` objects for value equality:</p>
+
+                        <pre><code class="java">
+Integer x = 1000;
+Integer y = 1000;
+System.out.println(x.equals(y));  // Always prints true
+    </code></pre>
+
+                        <p>Understanding these nuances between `int` and `Integer`, as well as the caching mechanism, can help Java developers write more efficient and correct code.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -134,33 +162,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <ul class="list-inline text-center">
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                    <p class="copyright text-muted">Copyright &copy; Your Website 2024</p>
                 </div>
             </div>
         </div>
